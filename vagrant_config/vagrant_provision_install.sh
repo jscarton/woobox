@@ -17,41 +17,28 @@ yum -y install fontconfig
 yum -y install unzip
 yum -y install nano
 yum -y install wget
+yum -y install epel-release
 
 echo "---------------------------------------------------------------"
 echo "INSTALLING GIT"
 echo "---------------------------------------------------------------"
 sudo yum -y install git
 
-
 echo "----------------------------------------------------------------"
-echo "INSTALLING NGINX"
+echo "INSTALLING APACHE"
 echo "----------------------------------------------------------------"
-yum -y install epel-release
-yum -y install nginx
-systemctl enable nginx.service
-systemctl start nginx.service 
-systemctl status nginx.service
-systemctl stop nginx.service
-systemctl status nginx.service
-#service nginx stop
-#
-#cp /home/vagrant/config/nginx.conf /etc/nginx/nginx.conf
-cp /home/vagrant/config/site.conf.template /etc/nginx/conf.d/sites.conf
-#
-systemctl start nginx.service
-systemctl status nginx.service
+sudo yum install httpd
+systemctl enable httpd.service
+systemctl start httpd.service 
 
 echo "---------------------------------------------------------------"
 echo "INSTALLING PHP"
 echo "---------------------------------------------------------------"
 rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
-yum -y install php56w-fpm php56w-opcache php56w-mysql php56w-cli
+yum -y install php56w php56w-opcache
 echo "Installing PHP extensions"
-yum -y install php56w-gd php56w-mcrypt
-systemctl enable php-fpm.service
-systemctl start php-fpm.service
+yum -y install php56w-gd php56w-mcrypt php56w-mysql php56w-cli
 #
 echo "---------------------------------------------------------------"
 echo "INSTALLING MYSQL"
@@ -61,13 +48,6 @@ sudo rpm -ivh mysql-community-release-el7-5.noarch.rpm
 yum -y update
 yum -y install mysql-server
 systemctl start mysqld
-#apt-get install debconf-utils -y
-#debconf-set-selections <<< "mysql-server mysql-server/root_password password root"
-#debconf-set-selections <<< "mysql-server mysql-server/root_password_again password root"
-#apt-get install mysql-server -y
-#mysql -proot --execute="grant all privileges on *.* to 'root'@'%' identified by '1234';"
-#cp /home/vagrant/config/my.cnf /etc/mysql/my.cnf
-#service mysql restart
 #
 #echo "---------------------------------------------------------------"
 #echo "INSTALLING COMPOSER"
@@ -108,9 +88,13 @@ mv MailHog_linux_amd64 /usr/bin/mailhog
 chmod 755 /usr/bin/mailhog
 
 echo "---------------------------------------------------------------"
-echo "SETTING LOCALE"
+echo "FIXING LOCALE"
 echo "---------------------------------------------------------------"
 echo "export LC_ALL=en_US.UTF-8" >> /etc/profile
+echo "export LANG=en_US.UTF-8" >> /etc/profile
+echo "export LANGUAGE=en_US.UTF-8" >> /etc/profile
+echo "export LC_COLLATE=C" >> /etc/profile
+echo "export LC_CTYPE=en_US.UTF-8" >> /etc/profile
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
