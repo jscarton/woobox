@@ -22,7 +22,7 @@ General CentOS/7 Vagrant Box for WordPress and Woocommerce Development:
 
 ## Installation
 
-	Assuming you have vagrant a virtualbox installed you just have to fork|clone|download to your local machine and run on your shell:
+	Assuming you have vagrant and virtualbox installed you just have to fork|clone|download to your local machine and run on your shell:
 	
 	> vagrant up
 
