@@ -4,13 +4,11 @@ General CentOS/7 Vagrant Box for WordPress and Woocommerce Development:
 
 * CentOS 7
 
-* NGINX
+* APACHE
 
 * PHP
 
 * MYSQL
-
-* NODE.JS
 
 * RUBY with RVM Support
 
