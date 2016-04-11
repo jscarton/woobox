@@ -27,7 +27,7 @@ sudo yum -y install git
 echo "----------------------------------------------------------------"
 echo "INSTALLING APACHE"
 echo "----------------------------------------------------------------"
-sudo yum install httpd
+yum -y install httpd
 systemctl enable httpd.service
 systemctl start httpd.service 
 
@@ -39,6 +39,7 @@ rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 yum -y install php56w php56w-opcache
 echo "Installing PHP extensions"
 yum -y install php56w-gd php56w-mcrypt php56w-mysql php56w-cli
+cp /home/vagrant/config/index.php /var/wwww/html/index.php
 #
 echo "---------------------------------------------------------------"
 echo "INSTALLING MYSQL"
@@ -47,19 +48,21 @@ wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
 sudo rpm -ivh mysql-community-release-el7-5.noarch.rpm
 yum -y update
 yum -y install mysql-server
+systemctl enable mysqld
 systemctl start mysqld
-#
-#echo "---------------------------------------------------------------"
-#echo "INSTALLING COMPOSER"
-#echo "---------------------------------------------------------------"
-#php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php
-#php composer-setup.php --install-dir=/bin --filename=composer
-#
-#
-#echo "---------------------------------------------------------------"
-#echo "INSTALLING REDIS"
-#echo "---------------------------------------------------------------"
-#apt-get install -y redis-server
+
+echo "---------------------------------------------------------------"
+echo "INSTALLING COMPOSER"
+echo "---------------------------------------------------------------"
+php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php
+php composer-setup.php --install-dir=/bin --filename=composer
+
+echo "---------------------------------------------------------------"
+echo "INSTALLING REDIS"
+echo "---------------------------------------------------------------"
+yum -y install redis
+systemctl enable redis.service
+systemctl start redis.service
 #
 #echo "---------------------------------------------------------------"
 #echo "INSTALLING NODEJS"
