@@ -50,6 +50,8 @@ rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 yum -y install php56w-fpm php56w-opcache php56w-mysql php56w-cli
 echo "Installing PHP extensions"
 yum -y install php56w-gd php56w-mcrypt
+systemctl enable php-fpm.service
+systemctl start php-fpm.service
 #
 echo "---------------------------------------------------------------"
 echo "INSTALLING MYSQL"
